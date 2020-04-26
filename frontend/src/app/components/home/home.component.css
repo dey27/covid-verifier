@@ -1,0 +1,65 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.row {
+  height: 80%;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+
+  margin: 0 -5px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  display: flex;
+  flex-direction: row;
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+}
+
+.card {
+  /*to remove card. uncomment below 4 lines and card:hover*/
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+  padding-top: 50%;
+  padding-bottom: 50%;
+  height: 100%;
+
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  width: 100%;
+}
+.card:hover {
+  background: #ffffff;
+}
+
+.a {
+  padding: auto;
+  text-align: center;
+}
+
+#one {
+  background: #f6f6f6;
+}
+
+#two {
+  background: #ececec;
+}
+
+#three {
+  background: #e1e1e1;
+}

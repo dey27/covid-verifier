@@ -5,5 +5,5 @@ from .views import *
 app_name = 'coreEngine'
 
 urlpatterns = [
-	path(r'initiatives/', HomeView.as_view(), name='HomeView'),
+    path(r'initiatives/', InitiativeView.as_view(), name='InitiativeView'),
 ]

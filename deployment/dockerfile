@@ -1,0 +1,82 @@
+# Running Docker -> cd to the repository root & execute below command
+# WINDOWS docker build -t django-angular-skeleton -f .\deployment\dockerfile .
+    # docker run -p 8000:8000 django-angular-skeleton
+# LINUX - docker build -t django-angular-skeleton -f ./deployment/dockerfile .
+
+# INFO - WHY NOT TO USE ALPINE
+## https://pythonspeed.com/articles/alpine-docker-python/
+
+
+####
+FROM ubuntu:20.04
+
+
+# author/ maintainer
+MAINTAINER raunak-r
+
+
+# ubuntu upgrades
+RUN apt-get update && \
+	apt-get -y upgrade && \
+	apt-get -y install curl
+# RUN apt-get clean && apt-get -y autoremove && apt-get -y autoclean
+
+
+# Install frontend dependencies
+RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -
+RUN apt-get install -y nodejs
+RUN apt-get install -y gcc g++ make
+RUN node --version && \
+	npm --version
+
+RUN npm uninstall -g @angular/cli@7.3.8
+RUN npm install -g @angular/cli@7.3.8
+
+
+# Install backend dependencies
+RUN apt-get install -y build-essential libsasl2-dev python-dev libldap2-dev libssl-dev libffi-dev libpq-dev
+RUN apt-get install -y python3-pip
+RUN pip3 install --upgrade virtualenv && \
+	pip3 install --upgrade setuptools && \
+	pip3 install --upgrade Cython
+
+COPY ./backend/requirements.txt /app/backend/
+RUN pip3 install -r /app/backend/requirements.txt
+
+
+## Everything above is constant and code-agnostic, which helps reduce the build time.
+
+
+# Copy the main code folder inside the container
+COPY . /app
+
+
+# Grant folder permissions
+RUN chmod +x /app/frontend/
+RUN mkdir /app/staticfiles/
+RUN chmod +x /app/staticfiles/
+RUN chmod -R 777 /app/frontend/
+RUN mkdir /.npm
+RUN chmod -R 777 /.npm
+
+
+# Remaining Frontend and Backend Installations
+WORKDIR /app/frontend/
+RUN npm install
+RUN ng build --prod
+
+# RUN npm init
+# RUN npm run-script build
+# RUN ng postinstall
+
+
+########## ENVIRONMENTS
+EXPOSE 80
+##########
+
+
+# Run the django app
+WORKDIR /app/backend/
+CMD python3 manage.py migrate
+
+CMD exec gunicorn django-angular-skeleton.wsgi:application --bind 0.0.0.0:80 --log-level=debug --workers 3 --timeout 90

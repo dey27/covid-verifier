@@ -1,0 +1,16 @@
+.mat-toolbar {
+  background: #000000;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.far-end{
+	padding-left: 10px;
+	font-size: xx-small;
+	display: inline-grid;
+	margin-bottom: auto;
+}
+.space-reducer{
+  max-height: 14px;
+}

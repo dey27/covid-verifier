@@ -1,0 +1,1 @@
+What if you wanted to work on a social-environment cause around your neighbourhood, but don't know where to start? Search for ideas at your location, connect with the idea creators, and join them on your next weekend. Catering only to societal-environmental causes.
