@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -10,7 +11,7 @@ DEV = {
     'ANGULAR_APP_DIR': os.environ.get('angular_app_dir', os.path.join(BASE_DIR, '../frontend/dist/sabar')),
     'DOMAIN': os.environ.get('domain', '127.0.0.1'),
     'DEBUG': os.environ.get('debug', True),
-    'ALLOWED_HOSTS': ['localhost', '127.0.0.1', os.environ.get('allowed_hosts')],
+    'ALLOWED_HOSTS': ['localhost', '127.0.0.1', 'covid-verifier.herokuapp.com', os.environ.get('allowed_hosts')],
     'DATABASES': {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -24,16 +25,15 @@ DEV = {
 }
 
 PRODUCTION = {
+    'STATIC_ROOT': os.path.join(BASE_DIR, 'staticfiles'),
+    'STATIC_URL': '/static/',
+    'ANGULAR_APP_DIR': os.environ.get('angular_app_dir', os.path.join(BASE_DIR, '../frontend/dist/sabar')),
+    'DOMAIN': os.environ.get('domain', 'covid-verifier.herokuapp.com'),
+    'DEBUG': os.environ.get('debug', True),
+    'ALLOWED_HOSTS': ['localhost', '127.0.0.1', 'covid-verifier.herokuapp.com', os.environ.get('allowed_hosts')],
     'DATABASES': {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('db_name', 'sabar'),
-            'USER': os.environ.get('db_username', 'postgres'),
-            'PASSWORD': os.environ.get('db_password', 'postgres'),
-            'HOST': os.environ.get('db_host', 'localhost'),
-            'PORT': os.environ.get('db_port', '5432'),
-        }
-    },
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    }
 }
 
 
