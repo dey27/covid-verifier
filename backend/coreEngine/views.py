@@ -2,41 +2,12 @@ from django.http import JsonResponse
 import logging
 
 from utility.utils import response_dict
-# from .apps import CoreengineConfig
 from .models import Initiative
 from .serializers import InitiativeSerializer
 
 from rest_framework.views import APIView
 
 # logger = Logs.get_logger(CoreengineConfig.name)
-
-
-# from rest_framework.permissions import IsAuthenticated, AllowAny
-# from rest_framework.authtoken.models import Token
-
-# class LoginUserView(APIView):
-# 	permission_classes = [IsAuthenticated]
-
-# 	def get(self, request):
-# 		userObjs = LoginUser.objects.all()
-# 		response = LoginUserSerializer(userObjs, many=True).data
-# 		return JsonResponse(response, safe=False, status=200)
-
-# class RegisterUserView(APIView):
-# 	permission_classes = [AllowAny]
-
-# 	def post(self, request):
-# 		try:
-# 			username = request.data['username']
-# 			password = request.data['password']
-# 			newUser = LoginUser.objects.create_user(username=username,\
-# 													password=password)
-# 			token = Token.objects.create(user=newUser)
-
-# 			returnText = "Successful! Your Username is " + str(newUser.username)
-# 			return JsonResponse(utils.create_response(None, returnText), safe=False, status=200)
-# 		except Exception as e:
-# 			return JsonResponse(utils.create_response(None, str(e)), safe=False, status=200)
 
 class InitiativeView(APIView):
     def get(self, request):
@@ -47,7 +18,7 @@ class InitiativeView(APIView):
             else:
                 query_set = Initiative.objects.get(initiative_id=request.GET.get('id'))
                 data = InitiativeSerializer(query_set, many=False).data
-            logger.info("Successfully Retrieved objects")
+            logging.info("Successfully Retrieved objects")
             return JsonResponse(response_dict(data=data, code=200))
         except Exception as e:
             return JsonResponse(response_dict(msg=str(e), code=500))

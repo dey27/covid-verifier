@@ -21,17 +21,17 @@ class InitiativeSerializer(serializers.ModelSerializer):
         use_natural_primary_keys = True
 
 
-class SampleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Sample
-        fields = '__all__'
-        use_natural_foreign_keys = True
-        use_natural_primary_keys = True
-
-    @staticmethod
-    def func(obj):
-        """
-        Usage - data.append(SampleSerializer.func(obj))
-        """
-        project_data = model_to_dict(obj)
-        return project_data
+# class SampleSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Sample
+#         fields = '__all__'
+#         use_natural_foreign_keys = True
+#         use_natural_primary_keys = True
+#
+#     @staticmethod
+#     def func(obj):
+#         """
+#         Usage - data.append(SampleSerializer.func(obj))
+#         """
+#         project_data = model_to_dict(obj)
+#         return project_data

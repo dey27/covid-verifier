@@ -1,13 +1,13 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="runserver" type="PythonConfigurationType" factoryName="Python">
-    <module name="sabar" />
+    <module name="covid-verifier" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <envs>
       <env name="PYTHONUNBUFFERED" value="1" />
       <env name="environment" value="DEV" />
     </envs>
-    <option name="SDK_HOME" value="$PROJECT_DIR$/../sabar_venv/bin/python3.6" />
+    <option name="SDK_HOME" value="$PROJECT_DIR$/backend/venv_sabar/bin/python3.8" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend" />
     <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />

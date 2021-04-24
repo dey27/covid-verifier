@@ -13,9 +13,9 @@ PROJECT_NAME = os.path.basename(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'f13cgz^ha9j1pde^gk45q3tm+4cv&=%r#%$_i%fdu9i^x05czb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = environments.get_value('DEBUG')
+DOMAIN = environments.get_value('DOMAIN')
+ALLOWED_HOSTS = environments.get_value('ALLOWED_HOSTS')
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'coreEngine',
-    'AIEngine',
     'utility',
 ]
 
@@ -126,12 +125,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+ANGULAR_APP_DIR = environments.get_value('ANGULAR_APP_DIR')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_URL = '/static/'
-
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000
+STATIC_URL = environments.get_value('STATIC_URL')
+STATIC_ROOT = environments.get_value('STATIC_ROOT')
+STATICFILES_STORAGE = 'spa.storage.SPAStaticFilesStorage'
+STATICFILES_DIRS = [
+    # os.path.join(BASE_DIR, 'static'),
+    os.path.join(ANGULAR_APP_DIR)   # Required for angular app dist serving
+]
 
 # Django-Taggit
 TAGGIT_CASE_INSENSITIVE = True

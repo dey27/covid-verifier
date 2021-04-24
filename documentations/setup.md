@@ -42,8 +42,14 @@ USE THIS IN CASE OF ERROR > pip install --trusted-host pypi.org --trusted-host p
 #### Export DISPLAY to your local machine
 
 ```
+Configure bash to use the local X server
+In bash run:
 echo "export DISPLAY=localhost:0.0" >> ~/.bashrc
-source ~/.bashrc
+To have the configuration changes take effect, restart bash, or run:
+. ~/.bashrc
+
+LINK - https://seanthegeek.net/234/graphical-linux-applications-bash-ubuntu-windows/
+
 Install and launch Xserver (Must ALWAYS be running before starting Pgadmin, pycharm etc)
 On Windows desktop, download and install VcXsrv server
 Launch it and choose preferences – use multiple windows as we are not installing a Linux Desktop environment (a very time consuming and failure prone operation)
@@ -53,7 +59,7 @@ sudo apt install xterm
 #### Postgres
 
 ```
-m. sudo apt install postgresql postgresql-contrib
+> sudo apt install postgresql postgresql-contrib
 > sudo apt-get install postgresql
 > sudo apt-get install python-psycopg2
 > sudo apt-get install libpq-dev
@@ -80,7 +86,7 @@ Postgres Reference Commands
 
 	2. Create New DB
 		$ sudo -u postgres psql
-		psql=# create database django-angular-skeleton;
+		psql=# create database sabar;
 ```
 
 #### Pycharm
@@ -94,49 +100,20 @@ From your Ubuntu prompt, copy the downloaded file to the home directory
 NOTE – this is now copied to the home/username folder
 Unzip pycharm:
 tar –xvf pycharm-community-2019.2.3.tar.gz
-/home/usernamepycharm-community-2019.2.3/bin/pycharm.sh &
-```
-
-#### Git
-
-```
-(Can be installed either in windows or wsl)
-
-Install Git for windows. Google it. Will show GIT Bash installed.
-OR
-sudo apt install git #(on wsl)
-
-git --version
-Generate ssh public key to access this repository.
-Enter ‘ls -al ~/.ssh’ to see if existing SSH keys are present: If not, use the below command to generate new ones.
-ssh-keygen -t rsa -b 4096 -C [your email address]
-gets saved in /home/username/.ssh/id_rsa
-Add your public key to Git Local and to your GIT settings>SSH&GPG Keys.
+/home/username/pycharm-community-2019.2.3/bin/pycharm.sh &
 ```
 
 ## Getting the Repository
-
-```
-Open Git Terminal.
-	LOCAL
-	# start the ssh-agent in the background
-	eval $(ssh-agent -s)
-	> Agent pid 59566
-	# Add key to ssh-agent
-	$ ssh-add ~/.ssh/id_rsa
-
-	> git clone <INSERT GIT SSH CLONE URL HERE>
-```
 
 ## Backend Setup
 
 #### Install dependencies On the Pycharm/ubuntu Terminal console
 
 ```
-cd django-angular-skeleton/django-angular-skeleton/venv_django-angular-skeleton/
+cd sabar/sabar/venv_sabar/
 virtualenv –python=python3 .
 source bin/activate
-cd ./../ (get back to django-angular-skeleton directory)
+cd ./../ (get back to sabar directory)
 pip install –r backend/requirements.txt
 ```
 
@@ -145,14 +122,14 @@ pip install –r backend/requirements.txt
 ```
 sudo service postgresql start
 pgadmin3 &
-Double click on localhost and connect to it. The DB django-angular-skeleton would be present there.
+Double click on localhost and connect to it. The DB sabar would be present there.
 ```
 
 #### Open Pycharm
 
 ```
 /home/username/pycharm-community-2019.2.3/bin/pycharm.sh &
-File> Open> choose folder django-angular-skeleton
+File> Open> choose folder sabar
 Attach in same window (this option will be provided when other repo’s are opened, this will come later while setting up core, common etc.)
 File
 	> Settings
@@ -163,9 +140,9 @@ File
 	> Under Virtualenv Environment
 	> Existing Environment
 	> Choose Interpreter by selecting the path
-	/mnt/……../django-angular-skeleton/venv_django-angular-skeleton/bin/python3.6
+	/mnt/……../sabar/venv_sabar/bin/python3.6
 
-Rename the venv – Give it an appropriate name like django-angular-skeleton-venv.
+Rename the venv – Give it an appropriate name like sabar-venv.
 Apply, Save etc.
 pycharm will begin indexing the folders.
 ```
@@ -177,7 +154,7 @@ Refer [DB Migrations Command File](./db-migration-commands.md) to bring the late
 #### Frontend - Open the terminal which can access NPM (Complete [Frontend Setup](#frontend-setup) first.
 
 ```
-cd /django-angular-skeleton/django-angular-skeleton/frontend/
+cd /sabar/sabar/frontend/
 npm install
 ng build
 ```
