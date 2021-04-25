@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sabar": {
+    "covid-verifier": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/sabar",
+            "outputPath": "dist/covid-verifier",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sabar:build"
+            "browserTarget": "covid-verifier:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "sabar:build:production"
+              "browserTarget": "covid-verifier:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sabar:build"
+            "browserTarget": "covid-verifier:build"
           }
         },
         "test": {
@@ -110,7 +110,7 @@
         }
       }
     },
-    "sabar-e2e": {
+    "covid-verifier-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -119,11 +119,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "sabar:serve"
+            "devServerTarget": "covid-verifier:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "sabar:serve:production"
+              "devServerTarget": "covid-verifier:serve:production"
             }
           }
         },
@@ -139,7 +139,7 @@
       }
     }
   },
-  "defaultProject": "sabar",
+  "defaultProject": "covid-verifier",
   "cli": {
     "analytics": false
   }
