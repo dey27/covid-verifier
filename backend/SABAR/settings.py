@@ -11,6 +11,9 @@ PROJECT_NAME = os.path.basename(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'f13cgz^ha9j1pde^gk45q3tm+4cv&=%r#%$_i%fdu9i^x05czb'
+ADMIN_USER_NAME = environments.get_value('ADMIN_USER_NAME')
+ADMIN_PASSWORD = environments.get_value('ADMIN_PASSWORD')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = environments.get_value('DEBUG')
@@ -18,6 +21,7 @@ DOMAIN = environments.get_value('DOMAIN')
 ALLOWED_HOSTS = environments.get_value('ALLOWED_HOSTS')
 
 CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Application definition
 INSTALLED_APPS = [

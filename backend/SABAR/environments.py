@@ -22,6 +22,8 @@ DEV = {
             'PORT': os.environ.get('db_port', '5432'),
         }
     },
+    'ADMIN_USER_NAME': os.environ.get("admin_user_name", 'admin'),
+    'ADMIN_PASSWORD': os.environ.get("admin_password", 'admin'),
 }
 
 PRODUCTION = {
@@ -33,7 +35,9 @@ PRODUCTION = {
     'ALLOWED_HOSTS': ['localhost', '127.0.0.1', 'covid-verifier.herokuapp.com', os.environ.get('allowed_hosts')],
     'DATABASES': {
         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    }
+    },
+    'ADMIN_USER_NAME': os.environ.get("admin_user_name"),
+    'ADMIN_PASSWORD': os.environ.get("admin_password"),
 }
 
 
