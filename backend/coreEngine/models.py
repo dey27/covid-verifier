@@ -19,39 +19,56 @@ class Posts(models.Model):
     supporting_url = models.URLField(max_length=500, blank=True, null=True,
                                      help_text="Any supporting links for the post.")
 
-    date_created = models.DateTimeField(auto_now_add=True, help_text="Date created in the Database")
+    """ Votes Logic
+    Eventually some posts will grow up to become stale over time.. such posts must have a final negative count.
+    It's possible to have a high positive votes, but the last 5 votes be -ve, such posts should bounce below.
+    If this won't be created, votes will be stored for last 5 only, but we need to show a better vote count.
+    """
+    vote_count = models.SmallIntegerField(default=0, null=True, blank=True,
+                                          help_text="A total of votes received so far.")
 
-    labels = TaggableManager(blank=True)
+    # created date is not required. A post's worth is determined by last updated timestamp.
+    date_updated = models.DateTimeField(auto_now=True, help_text="Last updated timestamp")
+
+    labels = TaggableManager(blank=False)
 
     def natural_key(self):
         return "{} - {}".format(self.location_city, self.post_name)
 
+    # def save(self, *args, **kwargs):
+    #     self.labels.add(kwargs['labels'])
+    #     return super(Posts, self).save(*args, **kwargs)
+
     class Meta:
-        ordering = ['date_created']
-        # name = ['Posts']
+        ordering = ['date_updated']
 
 
 class Votes(models.Model):
+    """
+    Table to only store the voting history, maximum of last 5 histories to reduce DB size.
+    """
     vote_id = models.AutoField(primary_key=True,
                                help_text="Auto-Generated Id")
     post = models.ForeignKey(Posts, blank=False, null=False, on_delete=models.CASCADE,
                              help_text="Foreign key to posts.")
-    up_vote = models.BooleanField(blank=True, null=True,
-                                  help_text="Vote Up if the post is helpful.")
-    down_vote = models.BooleanField(blank=True, null=True,
-                                    help_text="Vote Down if the post is helpful.")
+    vote = models.BooleanField(default=True, blank=False, null=False,
+                               help_text="Vote Up or down on the basis of if post is helpful.")
     note = models.TextField(max_length=20, blank=True, null=True)
+    # user_ip = models.GenericIPAddressField(blank=True, null=True,
+    #                                        help_text="")
     date_created = models.DateTimeField(auto_now_add=True, help_text="Date created in the Database")
-    user_ip = models.GenericIPAddressField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if self.up_vote is not None and self.down_vote is not None:
-            raise RuntimeError("Both cannot be voted at same time")
-        return super(Posts, self).save(*args, **kwargs)
+        if self.vote is True:
+            self.post.vote_count = self.post.vote_count + 1
+        else:
+            self.post.vote_count = self.post.vote_count - 1
+        self.post.save()
+
+        return super(Votes, self).save(*args, **kwargs)
 
     def natural_key(self):
         return "{} -> +{}, -{}".format(self.post, self.up_vote, self.down_vote)
 
     class Meta:
         ordering = ['date_created']
-        # name = ['Votes']

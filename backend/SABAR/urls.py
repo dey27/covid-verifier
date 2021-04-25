@@ -12,5 +12,5 @@ urlpatterns = [
 
 # App based URL's
 urlpatterns += [
-    path(r'sabar/', include('coreEngine.urls', namespace="coreEngine")),
+    path(r'apis/', include('coreEngine.urls', namespace="coreEngine")),
 ]
