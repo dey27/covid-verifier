@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Initiative
+# from .models import Initiative
 
 
 # get from http://www.django-rest-framework.org/api-guide/fields/#listfield
@@ -10,15 +10,15 @@ class StringListField(serializers.ListField):
     def to_representation(self, obj):
         return ', '.join(obj.values_list('name', flat=True))
 
-
-class InitiativeSerializer(serializers.ModelSerializer):
-    labels = StringListField()
-
-    class Meta:
-        model = Initiative
-        fields = '__all__'
-        use_natural_foreign_keys = True
-        use_natural_primary_keys = True
+#
+# class InitiativeSerializer(serializers.ModelSerializer):
+#     labels = StringListField()
+#
+#     class Meta:
+#         model = Initiative
+#         fields = '__all__'
+#         use_natural_foreign_keys = True
+#         use_natural_primary_keys = True
 
 
 # class SampleSerializer(serializers.ModelSerializer):

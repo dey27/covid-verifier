@@ -1,7 +1,7 @@
 # Running Docker -> cd to the repository root & execute below command
-# WINDOWS docker build -t django-angular-skeleton -f .\deployment\dockerfile .
-    # docker run -p 8000:8000 django-angular-skeleton
-# LINUX - docker build -t django-angular-skeleton -f ./deployment/dockerfile .
+# WINDOWS docker build -t sabar -f .\deployment\dockerfile .
+    # docker run -p 8000:8000 sabar
+# LINUX - docker build -t sabar -f ./deployment/dockerfile .
 
 # INFO - WHY NOT TO USE ALPINE
 ## https://pythonspeed.com/articles/alpine-docker-python/
@@ -29,8 +29,8 @@ RUN apt-get install -y gcc g++ make
 RUN node --version && \
 	npm --version
 
-RUN npm uninstall -g @angular/cli@7.3.8
-RUN npm install -g @angular/cli@7.3.8
+RUN npm uninstall -g @angular/cli@11
+RUN npm install -g @angular/cli@11
 
 
 # Install backend dependencies
@@ -79,4 +79,4 @@ EXPOSE 80
 WORKDIR /app/backend/
 CMD python3 manage.py migrate
 
-CMD exec gunicorn django-angular-skeleton.wsgi:application --bind 0.0.0.0:80 --log-level=debug --workers 3 --timeout 90
+CMD exec gunicorn sabar.wsgi:application --bind 0.0.0.0:80 --log-level=debug --workers 3 --timeout 90
